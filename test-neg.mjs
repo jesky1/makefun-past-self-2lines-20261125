@@ -39,3 +39,11 @@ test("a blank second line is rejected", () => {
 test("a line without a full stop is rejected", () => {
   assert.throws(() => gate("First line here\nSecond line here."), /full stop/);
 });
+
+test("an entry containing a link is rejected", () => {
+  assert.throws(() => gate("See https://example.com now.\nSecond line here today."), /link/);
+});
+
+test("a line under 4 words is rejected", () => {
+  assert.throws(() => gate("Go home now.\nSecond line here today."), /4 words/);
+});

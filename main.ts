@@ -19,6 +19,9 @@ export function gate(entry: string): void {
   if (entry.trim().length === 0) {
     throw new Error("entry is only whitespace");
   }
+  if (entry.includes("http://") || entry.includes("https://")) {
+    throw new Error("entry must not contain a link");
+  }
   const lines = entry.split("\n");
   if (lines.length !== 2) {
     throw new Error(`entry has ${lines.length} lines, gate needs exactly 2`);
@@ -26,6 +29,9 @@ export function gate(entry: string): void {
   for (const line of lines) {
     if (line.trim().length === 0) {
       throw new Error("one of the two lines is blank");
+    }
+    if (line.trim().split(/\s+/).length < 4) {
+      throw new Error("each line needs at least 4 words");
     }
     if (!line.trimEnd().endsWith(".")) {
       throw new Error("each line must end in a full stop");
