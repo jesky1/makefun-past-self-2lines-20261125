@@ -13,7 +13,7 @@ test("281 characters is rejected", () => {
 });
 
 test("exactly 280 characters is accepted", () => {
-  assert.doesNotThrow(() => gate("a".repeat(138) + ".\n" + "b".repeat(139) + "."));
+  assert.doesNotThrow(() => gate("a b c d " + "x".repeat(130) + ".\n" + "a b c d " + "y".repeat(131) + "."));
 });
 
 test("whitespace-only is rejected", () => {
@@ -33,11 +33,11 @@ test("three lines are rejected", () => {
 });
 
 test("a blank second line is rejected", () => {
-  assert.throws(() => gate("First line here.\n   "), /blank/);
+  assert.throws(() => gate("First line here today.\n   "), /blank/);
 });
 
 test("a line without a full stop is rejected", () => {
-  assert.throws(() => gate("First line here\nSecond line here."), /full stop/);
+  assert.throws(() => gate("First line here today\nSecond line here today."), /full stop/);
 });
 
 test("an entry containing a link is rejected", () => {
